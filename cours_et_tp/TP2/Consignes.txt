@@ -1,0 +1,58 @@
+TP EIGRP Name Mode
+
+Ce TP est à faire avec EVE-NG en utilisant les vIOS Router/Switch Cisco.
+
+1) Configurer les équipements 
+ * Convention de nommage claire sur tous les équipements
+ * Configuration du dualstack sur les routeurs
+ * Créer un utilisateur Privilège 15
+ * Configurer SSH
+   - N'autoriser que les utilisateurs du réseau du vlan 4 à pouvoir prendre la main en ssh sur les équipements
+
+2) EIGRP
+ * Configurer EIGRP name mode IPv4/IPv6 sur les routeurs (name ynov AS5)
+ * Le protocole doit utiliser l'authentification (SHA2-256 HMAC)
+ * Mettre un delay de 300 sur la connexion entre R4 & R5
+   - GIF permettant de constater la table topologique + RIB
+ * Utiliser la variance pour utiliser les 3 routes disponibles à partir de R1 pour atteindre les réseaux de R5
+   - GIF permettant de constater la table topologique + RIB
+ * Summarizer le subnet 172.16.0.0 à destination des voisins de R1
+ * Implémenter un offset sur R3 pour privilégier le lien R2-R5-R4 à destination du réseau 192.168.1.X/X
+ * Mettre en passive interface les interfaces ne jouant pas de rôle dans EIGRP
+
+3) Configuration du LAN
+ * Les switches SW1 & SW2 sont respectivement root primaire/root secondaire des vlans présent dans le réseau 192.168.1.0/24
+ * Les uplinks sont des agrégats de port
+   - Utiliser LACP comme protocole d'agrégation
+   - Configurer un load balancing IP pour les agrégations
+ * Les switches SW1 & SW2 sont les gateways de chaque VLANs. Utiliser le protocole GLBP pour assurer la résilience des réseaux. La VIP à utiliser pour chaque réseau sera la 1ere IP du réseau.
+ * Utiliser des interfaces VLAN pour servir de gateway
+ * Configurer correctement STP avec toutes les features nécessaire.
+ * Chaque vlan a besoin d'accueillir 50 utilisateurs.
+ * Interconnexion des switches SW1 & SW2 avec le router R4
+   - Utiliser une interface dédiée
+
+4) ACL
+ * ACL Extended name pour deny le ping en provenance du vlan 2 à destination du réseau 192.168.1.0/24
+
+5) Serveur DHCP
+ * Configurer un serveur DHCP (windows serveur >= 2016 ou linux)
+   - Regarder la doc EVE-NG pour implémenter un serveur
+ * La configuration IP de chaque utilisateur des différents VLANs doivent être automatiquement obtenu par DHCP
+
+A RENDRE
+
+ * HLD
+ * LLD niv1
+ * LLD niv2
+ * LLD niv3
+ * Matrice de câblage
+ 
+ * Configuration de tous les équipements (les commandes doivent également être passées en IPv6)
+   - show run
+   - show ip eigrp neighbors
+   - show ip eigrp topology all-links
+     - Faire un GIF de la table topologique avant la modification du delay et après la modification du delay
+   - show ip route
+     - Faire un GIF de la table de routage avant la modification du delay et après la modification du delay
+     - Faire un GIF de la table de routage avant & après l'ajout de l'offset sur R2

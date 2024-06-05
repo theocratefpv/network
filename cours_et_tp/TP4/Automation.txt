@@ -1,0 +1,55 @@
+Soft utilisé
+ - EVE-NG
+ - Linux
+ - vIOS L2
+ - vIOS L3
+ - GitHub
+
+Objectifs du TP
+ - Déployer un réseau Out-of-Band permettant la configuration des équipements réseau grâce à un outil DevOps : Nornir ou Ansible
+ - Configurer les équipements réseau grâce à l'outil d'automatisation
+ - Un utilisateur doit pouvoir récupérer une addresse IP et joindre le serveur DHCP. Toutefois, il ne doit pas avoir accès au réseau out-of-band.
+ 
+Consignes :
+ - Vous pouvez connecter tous vos équipements à un réseau de management (out-of-Band) où se trouvera ANSIBLE ou Nornir. Le plan d’adressage de ce réseau est à votre discrétion
+ - Tous les éléments de configuration doivent être poussés par ANSIBLE ou Nornir (exceptée la configuration permettant de communiquer avec ANSIBLE ou Nornir)
+ - Le routage inter-VLAN de chaque site est porté par les routeur.
+ - La numérotation des VLANs est à votre discrétion
+ - Le plan d’adressage du WAN est à votre discrétion (un addressage public est recommandé avec un cidr/30)
+ - Le plan d’adressage actuel des sites est réalisé de la manière suivante :
+
+	§ Filton (site 88)
+
+	· 10.33.88.0/25 : LAN
+
+	· 10.33.88.128/27 : WIFI
+
+	· 10.33.88.160/27 : VOIX
+
+	· 10.33.88.240/28 : Interco Router
+
+	§ Toulouse (site 31)
+
+	· 10.33.31.0/25 : LAN
+
+	· 10.33.31.128/27 : WIFI
+
+	· 10.33.31.160/27 : VOIX
+
+	· 10.33.31.240/28 : Router
+
+ - Vous devrez pouvoir modifier les plans d’adressage d’un site ou d’une région on ne modifiant qu’une seule variable sur ANSIBLE/Nornir
+ - Vous devez créer une convention de nommage pour les équipements prenant en compte la région, le site, le type d’équipement et générer les hostname de vos équipements via ANSIBLE/Nornir.
+ - Une redistribution EIGRP <-> BGP doit être faite afin que les sites puissent discuter entre eux.
+ - Une implémentation CI/CD avec GitHub doit être faite.
+ - Implémentation feature ZTP : lors de l'ajout d'un nouveau switch dans la zone EIGRP AS1, l'équipement doit pouvoir récupérer sa configuration grâce au serveur ANSIBLE/Nornir.
+ 
+A rendre :
+  - Dossier ARD explicant l'infrastructure : Convention de nommage, explication du plan IP, HLD/LLD + choix de l'outil d'automation.
+  - Les show run de chaque équipements.
+  - Les fichiers de configuration ANSIBLE/Nornir
+  - Gif montrant les Push vers github
+  - Gif montrant l'acquisition IP d'un PC
+  - Lien vers le repository Github
+ 
+ 

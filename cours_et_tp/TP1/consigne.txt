@@ -1,0 +1,10 @@
+Pour reprendre ce qui a été dit en cours. Le rendu attendu est le suivant :
+
+Un ARD au format PDF et qui comprend :
+HLD
+LLD niv 1 + Matrice de câblage
+LLD niv2
+LLD niv 3
+- Configurer le protocole de load balance sur src ip sur les switches dont le vlan est concerné par la communication Client/serveur.
+Les show run de chaque switch
+Le tout dans une archive ayant pour convention de nommage : <YYYYMMJJ>_ <Nom>_<Prénom>_TP-Spanning-Tree
