@@ -1,0 +1,14 @@
+Note sur le root guard
+
+Pour décider si vous devez configurer Root Guard sur les liens entre SW3 et SW4 et les autres switches (SW5, SW6, SW7, SW8), il est important de comprendre le rôle de ces switches dans votre réseau et le comportement souhaité de la topologie STP (Spanning Tree Protocol).
+
+Rôle de Root Guard
+Root Guard est utilisé pour prévenir des surprises dans la sélection du root bridge dans un réseau. C'est une fonctionnalité de sécurité utilisée sur les ports où l'arrivée de BPDUs supérieurs n'est pas attendue ou souhaitée. En activant Root Guard, vous empêchez que les ports sur lesquels il est activé deviennent des ports root, ce qui pourrait altérer la structure désirée de l'arbre de recouvrement (spanning tree).
+
+Analyse de Votre Topologie
+SW3 et SW4 semblent être des switches de distribution qui se connectent aux switches core (SW1 et SW2) ainsi qu'aux switches d'accès (SW5 à SW8).
+SW5, SW6, SW7 et SW8 sont probablement des switches d'accès connectant des dispositifs finaux comme des ordinateurs ou d'autres périphériques.
+Dans un scénario typique de réseau hiérarchisé :
+
+Les switches de distribution (SW3 et SW4) ne devraient pas recevoir de BPDUs meilleurs que ceux des switches core, car cela pourrait entraîner une reconfiguration non souhaitée de l'arbre de recouvrement.
+Les switches d'accès (SW5 à SW8) devraient normalement être des extrémités de l'arbre, et il n'est pas nécessaire ni souhaitable qu'ils proposent un meilleur BPDU pour devenir root bridge.
